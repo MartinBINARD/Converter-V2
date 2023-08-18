@@ -10,13 +10,19 @@ import './App.scss';
 
 function App() {
   const [isOpen, setIsOpen] = useState(true);
-  const currentCurrency = currencies[16];
+  const [convertCurrency, setConvertCurrency] = useState(currencies[1]);
 
   return (
     <div className="App">
       <Header baseAmount={1} isOpen={isOpen} setIsOpen={setIsOpen} />
-      {isOpen && <Currencies currencies={currencies} />}
-      <Result currency={currentCurrency} />
+      {isOpen && (
+        <Currencies
+          currencies={currencies}
+          convertCurrency={convertCurrency}
+          setConvertCurrency={setConvertCurrency}
+        />
+      )}
+      <Result currency={convertCurrency} />
     </div>
   );
 }

@@ -5,16 +5,22 @@ import './Currencies.scss';
 
 interface CurrenciesProps {
   currencies: Currency[];
+  convertCurrency: Currency;
+  setConvertCurrency: React.Dispatch<React.SetStateAction<Currency>>;
 }
 
-function Currencies({ currencies }: CurrenciesProps) {
+function Currencies({
+  currencies,
+  convertCurrency,
+  setConvertCurrency,
+}: CurrenciesProps) {
   const [search, setSearch] = useState('');
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(event.target.value);
   };
 
-  const filteredList = currencies.filter((currency) => {
+  const filteredList = currencies.filter((currency: Currency) => {
     // Si champ vide = j'affiche tout
     if (!search.length) {
       return true;
@@ -25,8 +31,16 @@ function Currencies({ currencies }: CurrenciesProps) {
       .includes(search.trim().toLocaleLowerCase());
   });
 
+  const handleClickItem = (currency) => {
+    setConvertCurrency(currency);
+  };
+
   const items = filteredList.map((currency) => (
-    <li className="currencies-list-item" key={currency.description}>
+    <li
+      key={currency.description}
+      onClick={() => handleClickItem(currency)}
+      className="currencies-list-item"
+    >
       {currency.description}
     </li>
   ));
