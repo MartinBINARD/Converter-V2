@@ -1,26 +1,22 @@
-import logo from '../../assets/logo.svg';
+import { useState } from 'react';
+
+import Header from './Header/Header';
+import Currencies from './Currencies/Currencies';
+import Result from './Result/Result';
+
+import currencies from '../../data/currencies';
 
 import './App.scss';
 
 function App() {
+  const [isOpen, setIsOpen] = useState(true);
+  const currentCurrency = currencies[16];
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-
-        <p>
-          Edit <code>src/components/App/App.tsx</code> and save to reload.
-        </p>
-
-        <a
-          className="App-link"
-          href="https://react.dev/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header baseAmount={1} isOpen={isOpen} setIsOpen={setIsOpen} />
+      {isOpen && <Currencies currencies={currencies} />}
+      <Result currency={currentCurrency} />
     </div>
   );
 }

@@ -1,0 +1,8 @@
+@use '../../../styles/variables' as v;
+
+.result {
+  background-color: v.$color-light;
+  color: v.$color;
+  text-align: center;
+  padding: 2rem;
+}
