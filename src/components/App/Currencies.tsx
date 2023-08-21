@@ -3,26 +3,18 @@ import { useEffect, useState } from 'react';
 import { Currency } from '../../@types';
 
 interface CurrenciesProps {
-  currencies: Currency[];
-  setCurrency: React.Dispatch<React.SetStateAction<Currency>>;
+  list: Currency[];
+  setCurrency: React.Dispatch<React.SetStateAction<Currency | null>>;
 }
 
-/*
-  Objectif : modifier le titre de l'onglet
-  (document.title = '....')
-  à chaque fois qu'on clique sur une devise
-
-  notion : useEffect
-*/
-
-function Currencies({ currencies, setCurrency }: CurrenciesProps) {
+function Currencies({ list, setCurrency }: CurrenciesProps) {
   const [search, setSearch] = useState('');
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(event.target.value);
   };
 
-  const filteredList = currencies.filter((currency) => {
+  const filteredList = list.filter((currency) => {
     if (!search.trim().length) {
       return true;
     }
@@ -80,6 +72,12 @@ function Currencies({ currencies, setCurrency }: CurrenciesProps) {
       document.body.removeEventListener('click', onBodyClick);
     };
   }, []); // seulement au 1er rendu
+
+  // au montage, la liste des devise est nulle,
+  // j'affiche un texte, une image ou autre
+  if (!list.length) {
+    return <p>Une erreur est survenue</p>;
+  }
 
   return (
     <div className="currencies">
