@@ -12,6 +12,7 @@ import { Currency } from '../../@types';
 import './App.scss';
 
 /*
+TEST
   On va ajouter un Toggler pour afficher/masquer
   la liste des devises
 
