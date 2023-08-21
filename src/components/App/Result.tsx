@@ -1,6 +1,4 @@
-import { Currency } from '../../../@types';
-
-import './Result.scss';
+import { Currency } from '../../@types';
 
 interface ResultProps {
   currency: Currency;

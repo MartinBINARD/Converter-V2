@@ -2,16 +2,29 @@
 @use 'fonts';
 @use 'variables' as v;
 
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+html {
+  font-size: 62.5%; // 10px pour 1rem par défaut
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+body {
+  font-size: 1.6rem;
+  font-family: v.$font-sans;
+}
+
+#root {
+  /*
+    on fixe la hauteur à 100vh
+    on supprime les barres de défilement
+    on se sert de `display: flex`
+      pour centrer horizontalement et verticalement les enfants
+  */
+  align-items: center;
+  background: v.$color-alt;
+  color: v.$color-light;
+  display: flex;
+  font-family: v.$font-sans;
+  font-weight: 300;
+  height: 100vh;
+  justify-content: center;
+  overflow: hidden;
 }

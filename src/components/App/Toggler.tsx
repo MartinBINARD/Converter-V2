@@ -5,6 +5,10 @@ interface TogglerProps {
 
 function Toggler({ isOpen, setIsOpen }: TogglerProps) {
   const handleClick = () => {
+    // j'affiche mon intention
+    console.log('Je veux modifier la valeur de mon état isOpen');
+    // je traduis mon intention :
+    // la nouvelle valeur est l'inverse de la valeur courante
     setIsOpen(!isOpen);
   };
 
