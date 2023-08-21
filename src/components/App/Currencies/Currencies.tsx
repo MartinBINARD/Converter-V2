@@ -1,19 +1,14 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Currency } from '../../../@types';
 
 import './Currencies.scss';
 
 interface CurrenciesProps {
   currencies: Currency[];
-  convertCurrency: Currency;
-  setConvertCurrency: React.Dispatch<React.SetStateAction<Currency>>;
+  setCurrency: React.Dispatch<React.SetStateAction<Currency>>;
 }
 
-function Currencies({
-  currencies,
-  convertCurrency,
-  setConvertCurrency,
-}: CurrenciesProps) {
+function Currencies({ currencies, setCurrency }: CurrenciesProps) {
   const [search, setSearch] = useState('');
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -22,7 +17,7 @@ function Currencies({
 
   const filteredList = currencies.filter((currency: Currency) => {
     // Si champ vide = j'affiche tout
-    if (!search.length) {
+    if (!search.trim().length) {
       return true;
     }
 
@@ -31,22 +26,35 @@ function Currencies({
       .includes(search.trim().toLocaleLowerCase());
   });
 
-  const handleClickItem = (currency) => {
-    setConvertCurrency(currency);
+  const handleClick = (currency: Currency) => {
+    setCurrency(currency);
+  };
+
+  const handleKeyDown = (
+    event: React.KeyboardEvent<HTMLDivElement>,
+    currency: Currency
+  ) => {
+    if (event.code === 'Enter') {
+      handleClick(currency);
+    }
   };
 
   const items = filteredList.map((currency) => (
-    <li
-      key={currency.description}
-      onClick={() => handleClickItem(currency)}
-      className="currencies-list-item"
-    >
-      {currency.description}
+    <li key={currency.code} className="currencies-list-item">
+      <div
+        onClick={() => handleClick(currency)}
+        onKeyDown={(event) => handleKeyDown(event, currency)}
+        role="button"
+        // on permet le focus sur l'élement
+        tabIndex={0}
+      >
+        {currency.description}
+      </div>
     </li>
   ));
 
   return (
-    <section className="currencies">
+    <div className="currencies">
       {/* <h2 className="currencies-title">Currencies</h2> */}
       <input
         type="search"
@@ -62,7 +70,7 @@ function Currencies({
       />
 
       <ul className="currencies-list">{items}</ul>
-    </section>
+    </div>
   );
 }
 
